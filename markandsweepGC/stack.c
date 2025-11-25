@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 stackType *stackNew(size_t capacity) {
-  stackType *newStack = malloc(capacity);
+  stackType *newStack = malloc(sizeof(stackType));
   if (newStack == NULL) {
     return NULL;
   }

@@ -1,9 +1,5 @@
-#pragma once
 #include <stdbool.h>
 #include <stddef.h>
-
-struct VirtualMachine;
-
 typedef struct Object object_t;
 
 typedef struct {
@@ -34,19 +30,11 @@ typedef struct ObjectData {
 } object_data_t;
 
 typedef struct Object {
-  int refcount;
+  bool is_Marked;
   object_kind_t kind;
   object_data_t data;
 } object_t;
 
-object_t *new_object_integer(struct VirtualMachine *vm, int value);
-object_t *new_object_float(struct VirtualMachine *vm, float value);
-object_t *new_object_string(struct VirtualMachine *vm, char *value);
-object_t *new_object_vector3(struct VirtualMachine *vm, object_t *x,
-                             object_t *y, object_t *z);
-object_t *new_object_array(struct VirtualMachine *vm, size_t size);
+void object_free(object_t *obj);
 bool array_set(object_t *obj, size_t index, object_t *value);
 object_t *array_get(object_t *obj, size_t index);
-void refcount_free(object_t *obj);
-void refcount_dec(object_t *obj);
-void refcount_inc(object_t *obj);
