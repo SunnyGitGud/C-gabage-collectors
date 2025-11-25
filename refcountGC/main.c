@@ -56,14 +56,6 @@ static char *test_array() {
 
   mu_assert("error, array refcount != 1", arr->refcount == 1);
 
-  // Array does NOT increment refcounts currently (based on my reading of
-  // object.c) Wait, let's check array_set implementation in object.c It just
-  // assigns: obj->data.v_array.elements[index] = value; So it does NOT
-  // increment. But refcount_free for ARRAY decrements elements. This is
-  // inconsistent with Vector3 now. If Vector3 increments, Array should probably
-  // too? Or we should manually increment before adding to array? For now, I
-  // will test existing behavior: refcount should be 1.
-
   mu_assert("error, str1 refcount != 1", str1->refcount == 1);
   mu_assert("error, str2 refcount != 1", str2->refcount == 1);
 
